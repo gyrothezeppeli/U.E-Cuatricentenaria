@@ -6,6 +6,9 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'U.E Ciudad Cuatricentenaria - Start Bootstrap Theme',
   description: 'Proyectos de Informática y Desarrollo',
+  verification: {
+    google: 'S-7BKj-vL3gmteCfBMSyYelNygsiPftZELDXZbDeI3Y', // <-- Agrega esta línea
+  },
 };
 
 export default function RootLayout({
