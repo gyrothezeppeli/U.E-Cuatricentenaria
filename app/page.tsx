@@ -107,6 +107,8 @@ const Navigation: React.FC = () => {
       router.push('/mision_vision');
     } else if (value === 'objetivos') {
       router.push('/objetivos');
+    } else if (value === 'historia') {
+      router.push('/historia');
     }
     
     event.target.value = '';
@@ -194,6 +196,7 @@ const Navigation: React.FC = () => {
                 }}
               >
                 <option value="" disabled style={{ color: '#083344' }}>informacion</option>
+                <option value="historia" style={{ color: '#083344' }}>Reseña Histórica</option>
                 <option value="mision-vision" style={{ color: '#083344' }}>Misión y Visión</option>
                 <option value="objetivos" style={{ color: '#083344' }}>Objetivos</option>
               </select>
