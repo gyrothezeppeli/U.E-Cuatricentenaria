@@ -84,7 +84,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ fontFamily: "'Montserrat', sans-serif", background: GRADIENTS.unifiedBg }}>
+    <div style={{ fontFamily: "'Montserrat', sans-serif", background: GRADIENTS.unifiedBg, overflowX: 'hidden' }}>
       <Navigation />
       <Masthead />
       <InicioSection />
@@ -98,6 +98,7 @@ const App: React.FC = () => {
 
 const Navigation: React.FC = () => {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -108,31 +109,51 @@ const Navigation: React.FC = () => {
       router.push('/objetivos');
     }
     
-    // Reset select
     event.target.value = '';
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style={{ 
       background: GRADIENTS.navbarGradient,
-      padding: '1rem 0',
+      padding: '0.75rem 0',
       boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
       borderBottom: `2px solid ${PALETTE.primary}`
     }}>
-      <div className="container">
-        <a className="navbar-brand" href="#page-top" style={{ fontWeight: 'bold', fontSize: '1.4rem' }}>U.E. "Ciudad Cuatricentenaria"</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+      <div className="container" style={{ paddingLeft: '15px', paddingRight: '15px' }}>
+        <a className="navbar-brand" href="#page-top" style={{ 
+          fontWeight: 'bold', 
+          fontSize: 'clamp(1rem, 4vw, 1.4rem)',
+          whiteSpace: 'normal',
+          lineHeight: '1.2'
+        }}>
+          U.E. "Ciudad Cuatricentenaria"
+        </a>
+        <button 
+          className="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarResponsive"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          style={{ border: 'none' }}
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarResponsive">
-          <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0" style={{ alignItems: 'center', gap: '0.5rem' }}>
-            <li className="nav-item">
+        <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarResponsive">
+          <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0" style={{ 
+            alignItems: 'center', 
+            gap: '0.5rem',
+            width: '100%'
+          }}>
+            <li className="nav-item" style={{ width: '100%' }}>
               <a className="nav-link" href="#inicio" style={{ 
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
                 padding: '0.5rem 1rem',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                display: 'block',
+                textAlign: 'center'
               }}
+              onClick={() => setIsMenuOpen(false)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -144,7 +165,7 @@ const Navigation: React.FC = () => {
                 inicio
               </a>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" style={{ width: '100%' }}>
               <select 
                 onChange={handleSelectChange}
                 defaultValue=""
@@ -159,7 +180,9 @@ const Navigation: React.FC = () => {
                   cursor: 'pointer',
                   outline: 'none',
                   fontWeight: '600',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  width: '100%',
+                  textAlign: 'center'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
@@ -175,13 +198,16 @@ const Navigation: React.FC = () => {
                 <option value="objetivos" style={{ color: '#083344' }}>Objetivos</option>
               </select>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" style={{ width: '100%' }}>
               <a className="nav-link" href="#galeria" style={{ 
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
                 padding: '0.5rem 1rem',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                display: 'block',
+                textAlign: 'center'
               }}
+              onClick={() => setIsMenuOpen(false)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -193,13 +219,16 @@ const Navigation: React.FC = () => {
                 galería
               </a>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" style={{ width: '100%' }}>
               <a className="nav-link" href="#team" style={{ 
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
                 padding: '0.5rem 1rem',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                display: 'block',
+                textAlign: 'center'
               }}
+              onClick={() => setIsMenuOpen(false)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -211,13 +240,16 @@ const Navigation: React.FC = () => {
                 team
               </a>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" style={{ width: '100%' }}>
               <a className="nav-link" href="#contacto" style={{ 
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
                 padding: '0.5rem 1rem',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                display: 'block',
+                textAlign: 'center'
               }}
+              onClick={() => setIsMenuOpen(false)}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -238,8 +270,8 @@ const Navigation: React.FC = () => {
 
 const Masthead: React.FC = () => (
   <header className="masthead" style={{
-    height: '70vh',
-    minHeight: '450px',
+    height: '60vh',
+    minHeight: '350px',
     display: 'flex', 
     alignItems: 'center', 
     color: 'white',
@@ -248,7 +280,8 @@ const Masthead: React.FC = () => (
     backgroundPosition: 'center', 
     textAlign: 'center',
     marginTop: '0',
-    position: 'relative'
+    position: 'relative',
+    padding: '0 15px'
   }}>
     <div style={{
       position: 'absolute',
@@ -256,14 +289,14 @@ const Masthead: React.FC = () => (
       left: 0,
       right: 0,
       bottom: 0,
-      background: 'rgba(0,0,0,0.3)',
+      background: 'rgba(0,0,0,0.4)',
       zIndex: 1
     }} />
-    <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+    <div className="container" style={{ position: 'relative', zIndex: 2, padding: '0 15px' }}>
       <div className="masthead-heading text-uppercase" style={{ 
           fontFamily: "'Saira Stencil One', cursive", 
-          fontSize: 'clamp(1.8rem, 6vw, 3.5rem)',
-          padding: '1rem 2rem',
+          fontSize: 'clamp(1.5rem, 6vw, 3rem)',
+          padding: '0.75rem 1rem',
           display: 'inline-block',
           background: 'rgba(255, 255, 255, 0.15)', 
           backdropFilter: 'blur(10px)',
@@ -271,7 +304,8 @@ const Masthead: React.FC = () => (
           borderRadius: '20px',
           color: '#FFFFFF', 
           boxShadow: `0 8px 32px ${PALETTE.shadow}`,
-          letterSpacing: '1px'
+          letterSpacing: '1px',
+          wordBreak: 'break-word'
         }}>
         U.E. Ciudad "Cuatricentenaria"
       </div>
@@ -284,7 +318,7 @@ const InicioSection: React.FC = () => (
     className="page-section" 
     id="inicio" 
     style={{ 
-      padding: '100px 0', 
+      padding: '60px 15px', 
       position: 'relative',
       overflow: 'hidden'
     }}
@@ -315,25 +349,29 @@ const InicioSection: React.FC = () => (
       left: 0,
       width: '100%',
       height: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
       zIndex: 1
     }} />
     
-    <div className="container text-center" style={{ position: 'relative', zIndex: 2 }}>
-      <h2 className="section-heading text-uppercase" style={LIQUID_GLASS.title}>Inicio</h2>
-      <div className="row mt-5">
+    <div className="container text-center" style={{ position: 'relative', zIndex: 2, padding: '0' }}>
+      <h2 className="section-heading text-uppercase" style={{
+        ...LIQUID_GLASS.title,
+        fontSize: 'clamp(1.8rem, 5vw, 2.5rem)',
+        marginBottom: '1.5rem'
+      }}>Inicio</h2>
+      <div className="row g-3 mt-3">
         {[
           { label: 'Calendario', icon: 'fa-calendar-alt', link: '/calendario', description: 'Consulta fechas importantes, evaluaciones y eventos académicos del año escolar.' },
           { label: 'Classroom', icon: 'fa-chalkboard-teacher', link: '/inicio', description: 'Accede a tus clases virtuales, tareas y recursos educativos en línea.' },
           { label: 'Horario', icon: 'fa-clock', link: '/horario', description: 'Revisa los horarios de clases por grado y sección.' }
         ].map((btn, i) => (
-          <div className="col-md-4 mb-4" key={i}>
+          <div className="col-12 col-md-4 mb-3" key={i}>
             <a href={btn.link} className="text-decoration-none" style={{ display: 'block' }}>
               <div 
-                className="p-4" 
+                className="p-3 p-md-4" 
                 style={{
                   ...LIQUID_GLASS.container,
-                  background: 'rgba(255, 255, 255, 0.85)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   backdropFilter: 'blur(12px) saturate(180%)',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   cursor: 'pointer',
@@ -341,95 +379,34 @@ const InicioSection: React.FC = () => (
                   overflow: 'hidden'
                 }}
                 onMouseEnter={(e) => {
-                  Object.assign(e.currentTarget.style, LIQUID_GLASS.containerHover);
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
-                  e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
-                  const overlay = e.currentTarget.querySelector('.button-overlay') as HTMLElement;
-                  if (overlay) overlay.style.transform = 'translateX(0)';
+                  if (window.innerWidth > 768) {
+                    Object.assign(e.currentTarget.style, LIQUID_GLASS.containerHover);
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)';
+                    e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  Object.assign(e.currentTarget.style, LIQUID_GLASS.container);
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.85)';
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  const overlay = e.currentTarget.querySelector('.button-overlay') as HTMLElement;
-                  if (overlay) overlay.style.transform = 'translateX(-100%)';
+                  if (window.innerWidth > 768) {
+                    Object.assign(e.currentTarget.style, LIQUID_GLASS.container);
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  }
                 }}
               >
-                <div className="button-overlay" style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(90deg, transparent, rgba(0,187,126,0.2), transparent)',
-                  transform: 'translateX(-100%)',
-                  transition: 'transform 0.6s ease',
-                  pointerEvents: 'none'
-                }} />
-                
-                <span className="fa-stack fa-4x mb-3" style={{
-                  animation: i === 0 ? 'pulse 2s infinite' : 'none',
+                <span className="fa-stack fa-3x fa-4x-md mb-3" style={{
                   display: 'inline-block'
                 }}>
                   <i className="fas fa-circle fa-stack-2x" style={{ color: PALETTE.primary }}></i>
                   <i className={`fas ${btn.icon} fa-stack-1x fa-inverse`}></i>
                 </span>
-                <h4 className="my-3" style={{ color: PALETTE.dark, fontWeight: 'bold' }}>{btn.label}</h4>
-                <p style={{ color: '#1a1a1a', fontSize: '0.9rem', fontWeight: '500' }}>{btn.description}</p>
-                
-                <div style={{
-                  marginTop: '15px',
-                  opacity: 0,
-                  transform: 'translateX(-10px)',
-                  transition: 'all 0.3s ease',
-                  color: PALETTE.primary,
-                  fontWeight: 'bold',
-                  fontSize: '14px'
-                }} className="button-arrow">
-                  Ver más →
-                </div>
-                
-                <style>
-                  {`
-                    .button-overlay {
-                      position: absolute;
-                      top: 0;
-                      left: 0;
-                      width: 100%;
-                      height: 100%;
-                      background: linear-gradient(90deg, transparent, rgba(0,187,126,0.15), transparent);
-                      transform: translateX(-100%);
-                      transition: transform 0.6s ease;
-                      pointer-events: none;
-                    }
-                    
-                    @keyframes pulse {
-                      0%, 100% {
-                        transform: scale(1);
-                      }
-                      50% {
-                        transform: scale(1.05);
-                      }
-                    }
-                    
-                    .gallery-item:hover .button-arrow {
-                      opacity: 1;
-                      transform: translateX(0);
-                    }
-                  `}
-                </style>
+                <h4 className="my-3" style={{ color: PALETTE.dark, fontWeight: 'bold', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>{btn.label}</h4>
+                <p style={{ color: '#1a1a1a', fontSize: 'clamp(0.8rem, 3vw, 0.9rem)', fontWeight: '500' }}>{btn.description}</p>
               </div>
             </a>
           </div>
         ))}
       </div>
     </div>
-    <style>{`
-      .col-md-4:hover .button-arrow {
-        opacity: 1 !important;
-        transform: translateX(0) !important;
-      }
-    `}</style>
   </section>
 );
 
@@ -439,12 +416,11 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
 
   return (
     <section className="page-section" id="galeria" style={{ 
-      padding: '100px 0', 
+      padding: '60px 15px', 
       position: 'relative',
       backgroundImage: `url('/assets/img/fondo4.jpg')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
       backgroundColor: '#083344'
     }}>
       <div style={{
@@ -453,15 +429,15 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
         left: 0,
         right: 0,
         bottom: 0,
-        background: 'rgba(0, 0, 0, 0.6)',
+        background: 'rgba(0, 0, 0, 0.7)',
         zIndex: 1
       }} />
       
-      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        <div className="text-center mb-5">
+      <div className="container" style={{ position: 'relative', zIndex: 2, padding: '0' }}>
+        <div className="text-center mb-4">
           <h2 className="section-heading text-uppercase" style={{
             fontFamily: "'Saira Stencil One', cursive",
-            fontSize: '2.5rem',
+            fontSize: 'clamp(1.8rem, 5vw, 2.5rem)',
             fontWeight: 'bold',
             color: '#FFFFFF',
             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
@@ -470,12 +446,12 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
           }}>Galería</h2>
-          <p style={{ color: '#FFFFFF', fontSize: '1.1rem', marginTop: '15px', textShadow: '1px 1px 2px rgba(0,0,0,0.5)', fontWeight: '500' }}>
+          <p style={{ color: '#FFFFFF', fontSize: 'clamp(0.9rem, 3vw, 1.1rem)', marginTop: '10px', textShadow: '1px 1px 2px rgba(0,0,0,0.5)', fontWeight: '500', padding: '0 15px' }}>
             Conoce nuestras instalaciones rehabilitadas
           </p>
         </div>
 
-        <div className="row mb-5">
+        <div className="row mb-4">
           <div className="col-12">
             <div 
               className="video-featured"
@@ -486,12 +462,6 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                 background: 'rgba(0, 0, 0, 0.6)'
               }}
               onClick={() => setSelectedVideo(true)}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
             >
               <div style={{ position: 'relative' }}>
                 <video 
@@ -499,10 +469,11 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                     width: '100%', 
                     height: 'auto', 
                     display: 'block',
-                    maxHeight: '400px',
+                    maxHeight: '300px',
                     objectFit: 'cover'
                   }}
                   muted
+                  playsInline
                 >
                   <source src={video.src} type="video/mp4" />
                 </video>
@@ -511,8 +482,8 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  width: '80px',
-                  height: '80px',
+                  width: '60px',
+                  height: '60px',
                   background: 'rgba(0, 187, 126, 0.9)',
                   borderRadius: '50%',
                   display: 'flex',
@@ -522,7 +493,7 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                   transition: 'all 0.3s ease',
                   backdropFilter: 'blur(4px)'
                 }}>
-                  <i className="fas fa-play" style={{ color: 'white', fontSize: '30px', marginLeft: '5px' }}></i>
+                  <i className="fas fa-play" style={{ color: 'white', fontSize: '24px', marginLeft: '4px' }}></i>
                 </div>
                 <div style={{
                   position: 'absolute',
@@ -530,45 +501,35 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                   left: 0,
                   right: 0,
                   background: 'linear-gradient(transparent, rgba(0,0,0,0.8))',
-                  padding: '30px 20px 20px',
+                  padding: '20px 15px 15px',
                   textAlign: 'center'
                 }}>
-                  <h4 style={{ color: 'white', marginBottom: '5px' }}>{video.title}</h4>
-                  <p style={{ color: 'rgba(255,255,255,0.9)', marginBottom: 0 }}>{video.description}</p>
+                  <h4 style={{ color: 'white', marginBottom: '5px', fontSize: 'clamp(1rem, 4vw, 1.25rem)' }}>{video.title}</h4>
+                  <p style={{ color: 'rgba(255,255,255,0.9)', marginBottom: 0, fontSize: 'clamp(0.8rem, 3vw, 0.9rem)' }}>{video.description}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <div className="row g-4">
+        <div className="row g-3">
           {images.map((img, index) => (
-            <div key={img.id} className="col-lg-4 col-md-6">
+            <div key={img.id} className="col-12 col-sm-6 col-lg-4">
               <div 
                 className="gallery-item" 
                 style={{ 
                   cursor: 'pointer', 
-                  borderRadius: '20px', 
+                  borderRadius: '15px', 
                   overflow: 'hidden',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'all 0.3s ease',
                   background: 'white',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
-                  opacity: 0,
-                  animation: `fadeInUp 0.6s ease forwards ${index * 0.1}s`
+                  boxShadow: '0 5px 15px rgba(0,0,0,0.2)'
                 }} 
                 onClick={() => setSelectedImage(img)}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-                }}
               >
                 <div style={{
                   width: '100%',
-                  height: '260px',
+                  height: '200px',
                   backgroundColor: '#f0f2f5',
                   display: 'flex',
                   alignItems: 'center',
@@ -583,15 +544,8 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                       width: '100%', 
                       height: '100%', 
                       objectFit: 'cover',
-                      display: 'block',
-                      transition: 'transform 0.5s ease'
+                      display: 'block'
                     }} 
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.1)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }}
                     onError={(e) => {
                       const target = e.currentTarget;
                       target.style.display = 'none';
@@ -607,60 +561,25 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                         fallbackText.style.fontSize = '14px';
                         parent.appendChild(fallbackText);
                       }
-                      console.error(`Error loading image: ${img.src}`);
                     }}
                   />
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'rgba(0,0,0,0.4)',
-                    opacity: 0,
-                    transition: 'opacity 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = '1';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = '0';
-                  }}>
-                    <i className="fas fa-search-plus" style={{ color: 'white', fontSize: '40px' }}></i>
-                  </div>
                 </div>
                 <div 
-                  className="p-4 text-center"
+                  className="p-3 text-center"
                   style={{
                     background: 'white',
-                    borderBottomLeftRadius: '20px',
-                    borderBottomRightRadius: '20px'
+                    borderBottomLeftRadius: '15px',
+                    borderBottomRightRadius: '15px'
                   }}
                 >
-                  <h5 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, marginBottom: '5px' }}>{img.title}</h5>
-                  <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>{img.description}</p>
+                  <h5 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, marginBottom: '5px', fontSize: 'clamp(0.9rem, 3.5vw, 1rem)' }}>{img.title}</h5>
+                  <p style={{ margin: 0, fontSize: 'clamp(0.75rem, 3vw, 0.85rem)', color: '#666' }}>{img.description}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
 
       {selectedVideo && (
         <div style={{
@@ -674,35 +593,38 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          padding: '15px'
         }} onClick={() => setSelectedVideo(false)}>
           <div style={{
-            maxWidth: '90%',
+            maxWidth: '95%',
             maxHeight: '90%',
-            width: '80%',
+            width: '100%',
             background: 'rgba(255, 255, 255, 0.1)',
-            borderRadius: '20px',
+            borderRadius: '15px',
             overflow: 'hidden',
             backdropFilter: 'blur(12px)'
           }} onClick={(e) => e.stopPropagation()}>
             <video 
               controls
               autoPlay
-              style={{ width: '100%', height: 'auto', maxHeight: '70vh' }}
+              playsInline
+              style={{ width: '100%', height: 'auto', maxHeight: '50vh' }}
             >
               <source src={video.src} type="video/mp4" />
               Tu navegador no soporta videos HTML5.
             </video>
-            <div className="p-4 text-center">
-              <h3 style={{ color: 'white' }}>{video.title}</h3>
-              <p style={{ color: 'rgba(255,255,255,0.8)' }}>{video.description}</p>
+            <div className="p-3 text-center">
+              <h3 style={{ color: 'white', fontSize: 'clamp(1rem, 4vw, 1.25rem)' }}>{video.title}</h3>
+              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 'clamp(0.8rem, 3vw, 0.9rem)' }}>{video.description}</p>
               <button style={{
                 background: GRADIENTS.buttonGradient,
                 border: 'none',
-                padding: '10px 20px',
+                padding: '8px 16px',
                 borderRadius: '5px',
                 color: 'white',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                fontSize: '14px'
               }} onClick={() => setSelectedVideo(false)}>Cerrar</button>
             </div>
           </div>
@@ -716,25 +638,26 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(0,0,0,0.9)',
+          background: 'rgba(0,0,0,0.95)',
           zIndex: 9999,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          padding: '15px'
         }} onClick={() => setSelectedImage(null)}>
           <div style={{
-            maxWidth: '90%',
+            maxWidth: '95%',
             maxHeight: '90%',
             background: 'rgba(255, 255, 255, 0.95)',
-            borderRadius: '20px',
+            borderRadius: '15px',
             overflow: 'hidden',
             backdropFilter: 'blur(12px)'
           }} onClick={(e) => e.stopPropagation()}>
             <img 
               src={selectedImage.src} 
               alt={selectedImage.title} 
-              style={{ width: '100%', height: 'auto', maxHeight: '70vh', objectFit: 'contain' }} 
+              style={{ width: '100%', height: 'auto', maxHeight: '50vh', objectFit: 'contain' }} 
               onError={(e) => {
                 const target = e.currentTarget;
                 target.style.display = 'none';
@@ -742,22 +665,23 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                 if (parent) {
                   const errorMsg = document.createElement('div');
                   errorMsg.textContent = '❌ Imagen no disponible';
-                  errorMsg.style.padding = '50px';
+                  errorMsg.style.padding = '30px';
                   errorMsg.style.textAlign = 'center';
                   parent.insertBefore(errorMsg, target);
                 }
               }}
             />
-            <div className="p-4 text-center">
-              <h3 style={{ color: PALETTE.dark }}>{selectedImage.title}</h3>
-              <p>{selectedImage.description}</p>
+            <div className="p-3 text-center">
+              <h3 style={{ color: PALETTE.dark, fontSize: 'clamp(1rem, 4vw, 1.25rem)' }}>{selectedImage.title}</h3>
+              <p style={{ fontSize: 'clamp(0.8rem, 3vw, 0.9rem)' }}>{selectedImage.description}</p>
               <button style={{
                 background: GRADIENTS.buttonGradient,
                 border: 'none',
-                padding: '10px 20px',
+                padding: '8px 16px',
                 borderRadius: '5px',
                 color: 'white',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                fontSize: '14px'
               }} onClick={() => setSelectedImage(null)}>Cerrar</button>
             </div>
           </div>
@@ -791,21 +715,24 @@ const TeamCarouselSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="page-section" id="team" style={{ padding: '100px 0', background: GRADIENTS.unifiedBg }}>
-      <div className="container">
-        <div className="text-center mb-5">
-          <h2 className="section-heading text-uppercase" style={LIQUID_GLASS.title}>Nuestro Equipo</h2>
-          <p style={{ color: '#1a1a1a', fontSize: '1.1rem', marginTop: '15px' }}>
+    <section className="page-section" id="team" style={{ padding: '60px 15px', background: GRADIENTS.unifiedBg }}>
+      <div className="container" style={{ padding: '0' }}>
+        <div className="text-center mb-4">
+          <h2 className="section-heading text-uppercase" style={{
+            ...LIQUID_GLASS.title,
+            fontSize: 'clamp(1.8rem, 5vw, 2.5rem)'
+          }}>Nuestro Equipo</h2>
+          <p style={{ color: '#1a1a1a', fontSize: 'clamp(0.9rem, 3vw, 1.1rem)', marginTop: '10px', padding: '0 15px' }}>
             Conoce a los profesionales que hacen posible la educación de calidad
           </p>
         </div>
         
         <div className="row justify-content-center">
-          <div className="col-lg-8">
+          <div className="col-12 col-lg-8">
             <div 
               style={{
                 ...LIQUID_GLASS.container,
-                padding: '30px',
+                padding: '20px 15px',
                 position: 'relative',
                 overflow: 'hidden'
               }}
@@ -817,7 +744,7 @@ const TeamCarouselSection: React.FC = () => {
                 }}>
                   <div style={{
                     width: '100%',
-                    height: '400px',
+                    height: '300px',
                     backgroundColor: '#e0e0e0',
                     borderRadius: '15px',
                     overflow: 'hidden',
@@ -847,25 +774,26 @@ const TeamCarouselSection: React.FC = () => {
                           const fallbackText = document.createElement('span');
                           fallbackText.textContent = '📷 Fotografía del equipo';
                           fallbackText.style.color = '#666';
-                          fallbackText.style.fontSize = '18px';
+                          fallbackText.style.fontSize = '16px';
                           parent.appendChild(fallbackText);
                         }
                       }}
                     />
                   </div>
                   
-                  <div style={{ marginTop: '25px' }}>
+                  <div style={{ marginTop: '20px' }}>
                     <h3 style={{ 
                       color: PALETTE.dark, 
                       fontWeight: 'bold',
-                      marginBottom: '10px'
+                      marginBottom: '8px',
+                      fontSize: 'clamp(1.2rem, 4vw, 1.5rem)'
                     }}>
                       {teamImages[currentIndex].name}
                     </h3>
                     <p style={{ 
                       color: PALETTE.primary, 
                       fontWeight: '600',
-                      fontSize: '1.1rem'
+                      fontSize: 'clamp(0.9rem, 3vw, 1rem)'
                     }}>
                       {teamImages[currentIndex].role}
                     </p>
@@ -876,30 +804,22 @@ const TeamCarouselSection: React.FC = () => {
                   onClick={prevSlide}
                   style={{
                     position: 'absolute',
-                    left: '10px',
+                    left: '5px',
                     top: '50%',
                     transform: 'translateY(-50%)',
                     background: 'rgba(0, 0, 0, 0.5)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '50%',
-                    width: '40px',
-                    height: '40px',
+                    width: '35px',
+                    height: '35px',
                     cursor: 'pointer',
-                    fontSize: '20px',
+                    fontSize: '18px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     transition: 'all 0.3s ease',
                     zIndex: 10
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.8)';
-                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)';
-                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
                   }}
                 >
                   ❮
@@ -909,30 +829,22 @@ const TeamCarouselSection: React.FC = () => {
                   onClick={nextSlide}
                   style={{
                     position: 'absolute',
-                    right: '10px',
+                    right: '5px',
                     top: '50%',
                     transform: 'translateY(-50%)',
                     background: 'rgba(0, 0, 0, 0.5)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '50%',
-                    width: '40px',
-                    height: '40px',
+                    width: '35px',
+                    height: '35px',
                     cursor: 'pointer',
-                    fontSize: '20px',
+                    fontSize: '18px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     transition: 'all 0.3s ease',
                     zIndex: 10
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.8)';
-                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)';
-                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
                   }}
                 >
                   ❯
@@ -941,28 +853,22 @@ const TeamCarouselSection: React.FC = () => {
                 <div style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  marginTop: '20px',
-                  gap: '10px'
+                  marginTop: '15px',
+                  gap: '8px'
                 }}>
                   {teamImages.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentIndex(index)}
                       style={{
-                        width: '12px',
-                        height: '12px',
+                        width: '10px',
+                        height: '10px',
                         borderRadius: '50%',
                         border: 'none',
                         background: currentIndex === index ? PALETTE.primary : '#ccc',
                         cursor: 'pointer',
                         transition: 'all 0.3s ease',
                         padding: 0
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.2)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'scale(1)';
                       }}
                     />
                   ))}
@@ -978,12 +884,11 @@ const TeamCarouselSection: React.FC = () => {
 
 const ContactSection: React.FC = () => (
   <section className="page-section" id="contacto" style={{ 
-    padding: '100px 0', 
+    padding: '60px 15px', 
     position: 'relative',
     backgroundImage: `url('/assets/img/fondo3.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
     backgroundColor: '#083344',
     color: 'white'
   }}>
@@ -993,54 +898,52 @@ const ContactSection: React.FC = () => (
       left: 0,
       right: 0,
       bottom: 0,
-      background: 'rgba(0, 0, 0, 0.6)',
+      background: 'rgba(0, 0, 0, 0.7)',
       zIndex: 1
     }} />
     
-    <div className="container text-center" style={{ position: 'relative', zIndex: 2 }}>
+    <div className="container text-center" style={{ position: 'relative', zIndex: 2, padding: '0' }}>
       <h2 className="section-heading text-uppercase" style={{ 
         fontFamily: "'Saira Stencil One', cursive", 
         color: PALETTE.primary,
-        textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+        fontSize: 'clamp(1.8rem, 5vw, 2.5rem)',
+        marginBottom: '1rem'
       }}>Contáctanos</h2>
       
-      <div className="mt-5 mb-4">
+      <div className="mt-4 mb-4">
         <div style={{
           ...LIQUID_GLASS.container,
           display: 'inline-block',
-          padding: '15px 30px',
+          padding: '12px 20px',
           background: 'rgba(255, 255, 255, 0.15)',
-          backdropFilter: 'blur(10px)'
+          backdropFilter: 'blur(10px)',
+          width: '100%',
+          maxWidth: '90%',
+          wordBreak: 'break-word'
         }}>
-          <i className="fas fa-envelope" style={{ marginRight: '10px', color: PALETTE.primary }}></i>
-          <span style={{ fontSize: '1.2rem', fontWeight: '500' }}>
+          <i className="fas fa-envelope" style={{ marginRight: '8px', color: PALETTE.primary }}></i>
+          <span style={{ fontSize: 'clamp(0.8rem, 3.5vw, 1rem)', fontWeight: '500' }}>
             ueciudadcuatricentenaria1@gmail.com
           </span>
         </div>
       </div>
       
-      <div className="mt-3">
+      <div className="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-3">
         <a 
           href="mailto:ueciudadcuatricentenaria1@gmail.com" 
-          className="btn btn-xl text-uppercase mx-3" 
+          className="btn btn-xl text-uppercase" 
           style={{ 
             background: GRADIENTS.buttonGradient, 
             color: 'white', 
-            padding: '1rem 2rem', 
+            padding: '0.75rem 1.5rem', 
             border: 'none', 
             fontWeight: 'bold',
             borderRadius: '10px',
             transition: 'all 0.3s ease',
             textDecoration: 'none',
-            display: 'inline-block'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = GRADIENTS.buttonHoverGradient;
-            e.currentTarget.style.transform = 'scale(1.05)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = GRADIENTS.buttonGradient;
-            e.currentTarget.style.transform = 'scale(1)';
+            display: 'inline-block',
+            fontSize: 'clamp(0.8rem, 3vw, 1rem)'
           }}>
           ✉️ Enviar Mensaje
         </a>
@@ -1049,11 +952,11 @@ const ContactSection: React.FC = () => (
           href="https://maps.app.goo.gl/1FCg2i3KPujfGUuY8" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="btn btn-xl text-uppercase mx-3" 
+          className="btn btn-xl text-uppercase" 
           style={{ 
             background: GRADIENTS.buttonGradient, 
             color: 'white', 
-            padding: '1rem 2rem', 
+            padding: '0.75rem 1.5rem', 
             border: 'none', 
             fontWeight: 'bold',
             borderRadius: '10px',
@@ -1061,15 +964,9 @@ const ContactSection: React.FC = () => (
             textDecoration: 'none',
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '0.5rem'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = GRADIENTS.buttonHoverGradient;
-            e.currentTarget.style.transform = 'scale(1.05)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = GRADIENTS.buttonGradient;
-            e.currentTarget.style.transform = 'scale(1)';
+            justifyContent: 'center',
+            gap: '0.5rem',
+            fontSize: 'clamp(0.8rem, 3vw, 1rem)'
           }}>
           📍 Ubícanos
         </a>
@@ -1079,9 +976,16 @@ const ContactSection: React.FC = () => (
 );
 
 const Footer: React.FC = () => (
-  <footer className="footer py-4" style={{ background: GRADIENTS.footerGradient, borderTop: `1px solid ${PALETTE.primary}` }}>
-    <div className="container text-center">
-      <span style={{ background: 'linear-gradient(135deg, #083344 0%, #00BB7E 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 'bold' }}>
+  <footer className="footer py-3" style={{ background: GRADIENTS.footerGradient, borderTop: `1px solid ${PALETTE.primary}` }}>
+    <div className="container text-center" style={{ padding: '0 15px' }}>
+      <span style={{ 
+        background: 'linear-gradient(135deg, #083344 0%, #00BB7E 100%)', 
+        WebkitBackgroundClip: 'text', 
+        WebkitTextFillColor: 'transparent', 
+        fontWeight: 'bold',
+        fontSize: 'clamp(0.7rem, 3vw, 0.9rem)',
+        display: 'block'
+      }}>
         Copyright © UPTCMS 2026 | U.E Ciudad Cuatricentenaria
       </span>
     </div>
