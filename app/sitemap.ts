@@ -6,53 +6,47 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://u-e-cuatricentenaria-pi.vercel.app'
 
   // Lista de todas las rutas (páginas) de tu sitio
-  const routes = [
+  const routes: MetadataRoute.Sitemap = [  // ← Agrega el tipo aquí también
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'daily',  // Opciones: 'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never'
-      priority: 1.0,             // Prioridad de 0 a 1 (1 es la más alta)
+      changeFrequency: 'daily' as const,  // ← Agrega 'as const'
+      priority: 1.0,
     },
     {
-      url: `${baseUrl}/#inicio`,
+      url: `${baseUrl}/inicio`,  // ← Quita el # si lo tenías
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,  // ← Agrega 'as const'
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/#galeria`,
+      url: `${baseUrl}/galeria`,  // ← Quita el # si lo tenías
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/#team`,
+      url: `${baseUrl}/team`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/#contacto`,
+      url: `${baseUrl}/contacto`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,  // ← Agrega 'as const'
       priority: 0.7,
     },
     {
       url: `${baseUrl}/calendario`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/inicio`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.8,
     },
     {
       url: `${baseUrl}/horario`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.8,
     },
   ]
