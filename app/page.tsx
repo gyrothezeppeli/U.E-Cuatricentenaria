@@ -99,6 +99,7 @@ const App: React.FC = () => {
 const Navigation: React.FC = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -112,6 +113,7 @@ const Navigation: React.FC = () => {
     }
     
     event.target.value = '';
+    setIsSelectOpen(false);
   };
 
   return (
@@ -167,39 +169,69 @@ const Navigation: React.FC = () => {
                 inicio
               </a>
             </li>
-            <li className="nav-item" style={{ width: '100%' }}>
-              <select 
-                onChange={handleSelectChange}
-                defaultValue=""
-                style={{
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.3)',
-                  color: 'white',
-                  fontSize: '0.9rem',
-                  textTransform: 'uppercase',
-                  padding: '0.6rem 1rem',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  outline: 'none',
-                  fontWeight: '600',
-                  transition: 'all 0.3s ease',
-                  width: '100%',
-                  textAlign: 'center'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <option value="" disabled style={{ color: '#083344' }}>informacion</option>
-                <option value="historia" style={{ color: '#083344' }}>Reseña Histórica</option>
-                <option value="mision-vision" style={{ color: '#083344' }}>Misión y Visión</option>
-                <option value="objetivos" style={{ color: '#083344' }}>Objetivos</option>
-              </select>
+            <li className="nav-item" style={{ width: '100%', position: 'relative' }}>
+              <div style={{ position: 'relative', width: '100%' }}>
+                <select 
+                  onChange={handleSelectChange}
+                  onFocus={() => setIsSelectOpen(true)}
+                  onBlur={() => setIsSelectOpen(false)}
+                  defaultValue=""
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)',
+                    border: `1px solid ${isSelectOpen ? PALETTE.primary : 'rgba(255,255,255,0.3)'}`,
+                    color: 'white',
+                    fontSize: '0.9rem',
+                    textTransform: 'uppercase',
+                    padding: '0.6rem 2rem 0.6rem 1rem',
+                    borderRadius: '12px',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    fontWeight: '600',
+                    transition: 'all 0.3s ease',
+                    width: '100%',
+                    textAlign: 'center',
+                    textAlignLast: 'center',
+                    appearance: 'none',
+                    WebkitAppearance: 'none',
+                    MozAppearance: 'none',
+                    boxShadow: isSelectOpen ? `0 0 0 3px ${PALETTE.primary}40` : 'none',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.25)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <option value="" disabled style={{ color: '#083344', background: '#f0f9ff', fontWeight: 'bold' }}>
+                    📚 Información
+                  </option>
+                  <option value="historia" style={{ color: '#083344', background: '#f0f9ff', padding: '10px' }}>
+                    📖 Reseña Histórica
+                  </option>
+                  <option value="mision-vision" style={{ color: '#083344', background: '#f0f9ff', padding: '10px' }}>
+                    🎯 Misión y Visión
+                  </option>
+                  <option value="objetivos" style={{ color: '#083344', background: '#f0f9ff', padding: '10px' }}>
+                    ⭐ Objetivos
+                  </option>
+                </select>
+                <div style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: `translateY(-50%) ${isSelectOpen ? 'rotate(180deg)' : 'rotate(0deg)'}`,
+                  pointerEvents: 'none',
+                  color: PALETTE.primary,
+                  fontSize: '12px',
+                  transition: 'transform 0.3s ease'
+                }}>
+                  ▼
+                </div>
+              </div>
             </li>
             <li className="nav-item" style={{ width: '100%' }}>
               <a className="nav-link" href="#galeria" style={{ 
@@ -219,7 +251,7 @@ const Navigation: React.FC = () => {
                 e.currentTarget.style.backgroundColor = 'transparent';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}>
-                galería
+                🖼️ galería
               </a>
             </li>
             <li className="nav-item" style={{ width: '100%' }}>
@@ -240,7 +272,7 @@ const Navigation: React.FC = () => {
                 e.currentTarget.style.backgroundColor = 'transparent';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}>
-                team
+                👥 team
               </a>
             </li>
             <li className="nav-item" style={{ width: '100%' }}>
@@ -261,7 +293,7 @@ const Navigation: React.FC = () => {
                 e.currentTarget.style.backgroundColor = 'transparent';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}>
-                contacto
+                📞 contacto
               </a>
             </li>
           </ul>
