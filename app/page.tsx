@@ -730,8 +730,8 @@ const TeamCarouselSection: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   const teamImages = [
-    { src: "/assets/img/equipo1.jpg", name: "Equipo Directivo", role: "Directivos y Personal Administrativo" },
-    { src: "/assets/img/equipo2.jpg", name: "Personal Docente", role: "Docentes y Personal de Apoyo" }
+    { src: "/assets/img/equipo1.jpg", name: "Nuestro equipo", role: "" },
+    { src: "/assets/img/equipo2.jpg", name: "Nuestro equipo", role: "" }
   ];
 
   const nextSlide = () => {
