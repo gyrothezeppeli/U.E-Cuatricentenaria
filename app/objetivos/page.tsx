@@ -213,9 +213,7 @@ const ObjetivosInstitucionalesPage: React.FC = () => {
                 <div className="text-center mb-5">
                   <h2 style={{ 
                     fontFamily: "'Saira Stencil One', cursive", 
-                    background: 'linear-gradient(135deg, #083344 0%, #00BB7E 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
+                    color: '#FFFFFF',  // CAMBIADO A BLANCO
                     fontSize: '2.5rem',
                     marginBottom: '15px'
                   }}>Objetivos Específicos</h2>

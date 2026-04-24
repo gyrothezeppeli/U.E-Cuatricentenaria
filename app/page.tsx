@@ -921,7 +921,7 @@ const ContactSection: React.FC = () => (
   <section className="page-section" id="contacto" style={{ 
     padding: '60px 15px', 
     position: 'relative',
-    backgroundImage: `url('/assets/img/fondo3.jpg')`,
+    backgroundImage: `url('/assets/img/fondo4.jpg')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundColor: '#083344',
