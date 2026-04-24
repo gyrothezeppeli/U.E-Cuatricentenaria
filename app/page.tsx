@@ -207,16 +207,16 @@ const Navigation: React.FC = () => {
                   }}
                 >
                   <option value="" disabled style={{ color: '#083344', background: '#f0f9ff', fontWeight: 'bold' }}>
-                    📚 Información
+                    Información
                   </option>
                   <option value="historia" style={{ color: '#083344', background: '#f0f9ff', padding: '10px' }}>
-                    📖 Reseña Histórica
+                    Reseña Histórica
                   </option>
                   <option value="mision-vision" style={{ color: '#083344', background: '#f0f9ff', padding: '10px' }}>
-                    🎯 Misión y Visión
+                    Misión y Visión
                   </option>
                   <option value="objetivos" style={{ color: '#083344', background: '#f0f9ff', padding: '10px' }}>
-                    ⭐ Objetivos
+                    Objetivos
                   </option>
                 </select>
                 <div style={{
@@ -251,7 +251,7 @@ const Navigation: React.FC = () => {
                 e.currentTarget.style.backgroundColor = 'transparent';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}>
-                🖼️ galería
+                galería
               </a>
             </li>
             <li className="nav-item" style={{ width: '100%' }}>
@@ -272,7 +272,7 @@ const Navigation: React.FC = () => {
                 e.currentTarget.style.backgroundColor = 'transparent';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}>
-                👥 team
+                team
               </a>
             </li>
             <li className="nav-item" style={{ width: '100%' }}>
@@ -293,7 +293,7 @@ const Navigation: React.FC = () => {
                 e.currentTarget.style.backgroundColor = 'transparent';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}>
-                📞 contacto
+                contacto
               </a>
             </li>
           </ul>
@@ -591,7 +591,7 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                         parent.style.alignItems = 'center';
                         parent.style.justifyContent = 'center';
                         const fallbackText = document.createElement('span');
-                        fallbackText.textContent = '📷 Imagen no disponible';
+                        fallbackText.textContent = 'Imagen no disponible';
                         fallbackText.style.color = '#666';
                         fallbackText.style.fontSize = '14px';
                         parent.appendChild(fallbackText);
@@ -699,7 +699,7 @@ const GallerySection: React.FC<{ images: GalleryImage[]; video: GalleryVideo }> 
                 const parent = target.parentElement;
                 if (parent) {
                   const errorMsg = document.createElement('div');
-                  errorMsg.textContent = '❌ Imagen no disponible';
+                  errorMsg.textContent = 'Imagen no disponible';
                   errorMsg.style.padding = '30px';
                   errorMsg.style.textAlign = 'center';
                   parent.insertBefore(errorMsg, target);
@@ -807,7 +807,7 @@ const TeamCarouselSection: React.FC = () => {
                           parent.style.alignItems = 'center';
                           parent.style.justifyContent = 'center';
                           const fallbackText = document.createElement('span');
-                          fallbackText.textContent = '📷 Fotografía del equipo';
+                          fallbackText.textContent = 'Fotografía del equipo';
                           fallbackText.style.color = '#666';
                           fallbackText.style.fontSize = '16px';
                           parent.appendChild(fallbackText);
@@ -980,7 +980,7 @@ const ContactSection: React.FC = () => (
             display: 'inline-block',
             fontSize: 'clamp(0.8rem, 3vw, 1rem)'
           }}>
-          ✉️ Enviar Mensaje
+          Enviar Mensaje
         </a>
         
         <a 
@@ -1003,7 +1003,7 @@ const ContactSection: React.FC = () => (
             gap: '0.5rem',
             fontSize: 'clamp(0.8rem, 3vw, 1rem)'
           }}>
-          📍 Ubícanos
+          Ubícanos
         </a>
       </div>
     </div>
@@ -1021,7 +1021,7 @@ const Footer: React.FC = () => (
         fontSize: 'clamp(0.7rem, 3vw, 0.9rem)',
         display: 'block'
       }}>
-        Copyright © UPTCMS 2026 | U.E Ciudad Cuatricentenaria
+        Copyright 2026 | U.E Ciudad Cuatricentenaria
       </span>
     </div>
   </footer>
