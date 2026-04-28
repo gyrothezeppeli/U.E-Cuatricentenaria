@@ -1,7 +1,7 @@
 // app/mision_vision/page.tsx
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 // --- CONFIGURACIÓN DE COLORES CON DEGRADADOS ---
@@ -49,7 +49,35 @@ const LIQUID_GLASS = {
   }
 };
 
+// --- HOOK PARA DETECTAR TAMAÑO DE PANTALLA ---
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowSize;
+};
+
 const MisionVisionPage: React.FC = () => {
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
+  const isTablet = width >= 768 && width < 1024;
+
   return (
     <div style={{ 
       fontFamily: "'Montserrat', sans-serif", 
@@ -58,7 +86,7 @@ const MisionVisionPage: React.FC = () => {
       backgroundImage: `url('/assets/img/fondo4.jpg')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
+      backgroundAttachment: isMobile ? 'scroll' : 'fixed',
       backgroundColor: '#083344'
     }}>
       {/* Overlay para mejorar legibilidad */}
@@ -75,10 +103,10 @@ const MisionVisionPage: React.FC = () => {
       <div style={{ position: 'relative', zIndex: 1 }}>
         <Navigation />
         
-        {/* Hero Section */}
+        {/* Hero Section - Responsive */}
         <header className="masthead" style={{
-          height: '35vh',
-          minHeight: '250px',
+          height: isMobile ? '25vh' : '35vh',
+          minHeight: isMobile ? '200px' : '250px',
           display: 'flex', 
           alignItems: 'center', 
           color: 'white',
@@ -98,37 +126,37 @@ const MisionVisionPage: React.FC = () => {
             background: 'rgba(0,0,0,0.4)',
             zIndex: 1
           }} />
-          <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <div className="container" style={{ position: 'relative', zIndex: 2, padding: isMobile ? '0 15px' : '0' }}>
             <div className="masthead-heading text-uppercase" style={{ 
-                fontFamily: "'Saira Stencil One', cursive", 
-                fontSize: 'clamp(2rem, 6vw, 3.5rem)',
-                padding: '1rem 2rem',
-                display: 'inline-block',
-                background: 'rgba(0, 187, 126, 0.2)', 
-                backdropFilter: 'blur(10px)',
-                border: '2px solid rgba(0, 187, 126, 0.5)', 
-                borderRadius: '20px',
-                color: '#FFFFFF', 
-                boxShadow: `0 8px 32px ${PALETTE.shadow}`,
-                letterSpacing: '2px'
-              }}>
+              fontFamily: "'Saira Stencil One', cursive", 
+              fontSize: isMobile ? 'clamp(1.5rem, 5vw, 2rem)' : 'clamp(2rem, 6vw, 3.5rem)',
+              padding: isMobile ? '0.8rem 1rem' : '1rem 2rem',
+              display: 'inline-block',
+              background: 'rgba(0, 187, 126, 0.2)', 
+              backdropFilter: 'blur(10px)',
+              border: '2px solid rgba(0, 187, 126, 0.5)', 
+              borderRadius: '20px',
+              color: '#FFFFFF', 
+              boxShadow: `0 8px 32px ${PALETTE.shadow}`,
+              letterSpacing: '1px'
+            }}>
               Misión y Visión
             </div>
           </div>
         </header>
 
         {/* Contenido principal */}
-        <div className="container py-5">
+        <div className="container py-4 py-md-5" style={{ paddingLeft: isMobile ? '15px' : 'auto', paddingRight: isMobile ? '15px' : 'auto' }}>
           
-          {/* Grid de Misión y Visión - Versión mejorada y llamativa */}
-          <div className="row mb-5 g-4">
+          {/* Grid de Misión y Visión - Responsive */}
+          <div className="row mb-4 mb-md-5 g-3 g-md-4">
             {/* Tarjeta de Misión */}
             <div className="col-lg-6">
               <div 
-                className="p-5 h-100"
+                className="p-4 p-md-5 h-100"
                 style={{ 
                   background: 'linear-gradient(135deg, rgba(0, 187, 126, 0.9) 0%, rgba(6, 78, 59, 0.95) 100%)',
-                  borderRadius: '24px',
+                  borderRadius: isMobile ? '20px' : '24px',
                   backdropFilter: 'blur(10px)',
                   border: '1px solid rgba(255, 255, 255, 0.3)',
                   boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(0, 187, 126, 0.3) inset',
@@ -136,47 +164,53 @@ const MisionVisionPage: React.FC = () => {
                   cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
-                  e.currentTarget.style.boxShadow = '0 30px 50px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(0, 187, 126, 0.5) inset';
+                  if (!isMobile) {
+                    e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
+                    e.currentTarget.style.boxShadow = '0 30px 50px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(0, 187, 126, 0.5) inset';
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(0, 187, 126, 0.3) inset';
+                  if (!isMobile) {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(0, 187, 126, 0.3) inset';
+                  }
                 }}
               >
                 <div className="text-center">
                   <div style={{ 
-                    fontSize: '4rem', 
-                    marginBottom: '20px',
+                    fontSize: isMobile ? '3rem' : '4rem', 
+                    marginBottom: isMobile ? '15px' : '20px',
                     background: 'rgba(255, 255, 255, 0.2)',
-                    padding: '15px',
+                    padding: isMobile ? '12px' : '15px',
                     borderRadius: '50%',
-                    width: '90px',
-                    height: '90px',
+                    width: isMobile ? '70px' : '90px',
+                    height: isMobile ? '70px' : '90px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
-                  }}></div>
+                    justifyContent: 'center',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                  }}>🎯</div>
                   <h2 style={{ 
                     fontFamily: "'Saira Stencil One', cursive", 
                     color: 'white',
-                    fontSize: '2.5rem',
-                    marginBottom: '20px',
+                    fontSize: isMobile ? '1.8rem' : '2.5rem',
+                    marginBottom: isMobile ? '15px' : '20px',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                     letterSpacing: '1px'
                   }}>Misión</h2>
                   <div style={{ 
-                    width: '80px', 
+                    width: '60px', 
                     height: '3px', 
                     background: 'white', 
-                    margin: '20px auto',
+                    margin: '15px auto',
                     borderRadius: '3px'
                   }}></div>
                   <p style={{ 
-                    fontSize: '1.1rem', 
+                    fontSize: isMobile ? '0.95rem' : '1.1rem', 
                     color: 'white', 
                     fontWeight: '500', 
-                    lineHeight: '1.8', 
+                    lineHeight: isMobile ? '1.6' : '1.8', 
                     textAlign: 'center',
                     textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
                   }}>
@@ -189,10 +223,10 @@ const MisionVisionPage: React.FC = () => {
             {/* Tarjeta de Visión */}
             <div className="col-lg-6">
               <div 
-                className="p-5 h-100"
+                className="p-4 p-md-5 h-100"
                 style={{ 
                   background: 'linear-gradient(135deg, rgba(8, 51, 68, 0.95) 0%, rgba(0, 187, 126, 0.85) 100%)',
-                  borderRadius: '24px',
+                  borderRadius: isMobile ? '20px' : '24px',
                   backdropFilter: 'blur(10px)',
                   border: '1px solid rgba(255, 255, 255, 0.3)',
                   boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(0, 187, 126, 0.3) inset',
@@ -200,49 +234,53 @@ const MisionVisionPage: React.FC = () => {
                   cursor: 'pointer'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
-                  e.currentTarget.style.boxShadow = '0 30px 50px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(0, 187, 126, 0.5) inset';
+                  if (!isMobile) {
+                    e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
+                    e.currentTarget.style.boxShadow = '0 30px 50px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(0, 187, 126, 0.5) inset';
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(0, 187, 126, 0.3) inset';
+                  if (!isMobile) {
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(0, 187, 126, 0.3) inset';
+                  }
                 }}
               >
                 <div className="text-center">
                   <div style={{ 
-                    fontSize: '4rem', 
-                    marginBottom: '20px',
+                    fontSize: isMobile ? '3rem' : '4rem', 
+                    marginBottom: isMobile ? '15px' : '20px',
                     background: 'rgba(255, 255, 255, 0.2)',
-                    padding: '15px',
+                    padding: isMobile ? '12px' : '15px',
                     borderRadius: '50%',
-                    width: '90px',
-                    height: '90px',
+                    width: isMobile ? '70px' : '90px',
+                    height: isMobile ? '70px' : '90px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginLeft: 'auto',
                     marginRight: 'auto'
-                  }}></div>
+                  }}>👁️</div>
                   <h2 style={{ 
                     fontFamily: "'Saira Stencil One', cursive", 
                     color: 'white',
-                    fontSize: '2.5rem',
-                    marginBottom: '20px',
+                    fontSize: isMobile ? '1.8rem' : '2.5rem',
+                    marginBottom: isMobile ? '15px' : '20px',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
                     letterSpacing: '1px'
                   }}>Visión</h2>
                   <div style={{ 
-                    width: '80px', 
+                    width: '60px', 
                     height: '3px', 
                     background: 'white', 
-                    margin: '20px auto',
+                    margin: '15px auto',
                     borderRadius: '3px'
                   }}></div>
                   <p style={{ 
-                    fontSize: '1.1rem', 
+                    fontSize: isMobile ? '0.95rem' : '1.1rem', 
                     color: 'white', 
                     fontWeight: '500', 
-                    lineHeight: '1.8', 
+                    lineHeight: isMobile ? '1.6' : '1.8', 
                     textAlign: 'center',
                     textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
                   }}>
@@ -253,49 +291,52 @@ const MisionVisionPage: React.FC = () => {
             </div>
           </div>
 
-          {/* ¿Por qué elegirnos? - Sección mejorada */}
-          <div className="row mb-5">
+          {/* ¿Por qué elegirnos? - Sección mejorada y responsive */}
+          <div className="row mb-4 mb-md-5">
             <div className="col-12">
               <div 
-                className="p-5" 
+                className="p-4 p-md-5" 
                 style={{ 
                   ...LIQUID_GLASS.container,
                   background: 'rgba(255, 255, 255, 0.3)',
-                  backdropFilter: 'blur(15px) saturate(180%)'
+                  backdropFilter: 'blur(15px) saturate(180%)',
+                  padding: isMobile ? '20px' : '48px'
                 }}
                 onMouseEnter={(e) => {
-                  Object.assign(e.currentTarget.style, LIQUID_GLASS.containerHover);
+                  if (!isMobile) {
+                    Object.assign(e.currentTarget.style, LIQUID_GLASS.containerHover);
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  Object.assign(e.currentTarget.style, LIQUID_GLASS.container);
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                  if (!isMobile) {
+                    Object.assign(e.currentTarget.style, LIQUID_GLASS.container);
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                  }
                 }}
               >
-                <div className="text-center mb-5">
+                <div className="text-center mb-4 mb-md-5">
                   <h2 style={{ 
                     fontFamily: "'Saira Stencil One', cursive", 
                     background: 'linear-gradient(135deg, #083344 0%, #00BB7E 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
-                    fontSize: '2.5rem',
+                    fontSize: isMobile ? '1.8rem' : '2.5rem',
                     marginBottom: '15px'
                   }}>¿Por qué elegirnos?</h2>
-                  <div style={{ width: '80px', height: '3px', background: PALETTE.primary, margin: '20px auto', borderRadius: '3px' }}></div>
+                  <div style={{ width: '60px', height: '3px', background: PALETTE.primary, margin: '15px auto', borderRadius: '3px' }}></div>
                   
-                  {/* Contenedor estilo header para el texto */}
                   <div style={{ 
                     display: 'inline-block',
-                    marginTop: '20px',
+                    marginTop: '15px',
                     background: 'rgba(0, 187, 126, 0.15)', 
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(0, 187, 126, 0.4)', 
                     borderRadius: '50px',
-                    padding: '12px 30px',
-                    boxShadow: `0 4px 15px ${PALETTE.shadow}`
+                    padding: isMobile ? '8px 20px' : '12px 30px',
                   }}>
                     <p style={{ 
                       color: PALETTE.dark, 
-                      fontSize: '1rem', 
+                      fontSize: isMobile ? '0.85rem' : '1rem',
                       fontWeight: '600',
                       margin: 0,
                       letterSpacing: '0.5px'
@@ -305,11 +346,11 @@ const MisionVisionPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="row g-4">
+                <div className="row g-3 g-md-4">
                   {/* Educación integral y de calidad */}
                   <div className="col-md-6">
                     <div 
-                      className="p-4 rounded-3 h-100"
+                      className="p-3 p-md-4 rounded-3 h-100"
                       style={{ 
                         transition: 'all 0.4s ease',
                         background: 'rgba(255, 255, 255, 0.8)',
@@ -317,27 +358,42 @@ const MisionVisionPage: React.FC = () => {
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
-                        e.currentTarget.style.transform = 'translateX(5px)';
-                        e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        if (!isMobile) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+                          e.currentTarget.style.transform = 'translateX(5px)';
+                          e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
-                        e.currentTarget.style.transform = 'translateX(0)';
-                        e.currentTarget.style.boxShadow = 'none';
+                        if (!isMobile) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: isMobile ? '10px' : '15px', 
+                        marginBottom: isMobile ? '12px' : '15px',
+                        flexWrap: 'wrap'
+                      }}>
                         <div style={{ 
-                          fontSize: '2rem', 
+                          fontSize: isMobile ? '1.5rem' : '2rem', 
                           color: PALETTE.primary,
                           fontWeight: 'bold'
                         }}>01</div>
-                        <h3 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, fontSize: '1.3rem' }}>
+                        <h3 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, fontSize: isMobile ? '1rem' : '1.3rem' }}>
                           Educación integral y de calidad
                         </h3>
                       </div>
-                      <p style={{ color: '#1a1a1a', fontSize: '0.95rem', lineHeight: '1.7', marginLeft: '45px' }}>
+                      <p style={{ 
+                        color: '#1a1a1a', 
+                        fontSize: isMobile ? '0.85rem' : '0.95rem', 
+                        lineHeight: '1.6', 
+                        marginLeft: isMobile ? '0' : '45px'
+                      }}>
                         Nuestra misión es clara: proporcionar una formación académica, científica y cultural sólida para cada joven de Caricuao. No dejamos a nadie atrás.
                       </p>
                     </div>
@@ -346,7 +402,7 @@ const MisionVisionPage: React.FC = () => {
                   {/* Entorno rehabilitado y seguro */}
                   <div className="col-md-6">
                     <div 
-                      className="p-4 rounded-3 h-100"
+                      className="p-3 p-md-4 rounded-3 h-100"
                       style={{ 
                         transition: 'all 0.4s ease',
                         background: 'rgba(255, 255, 255, 0.8)',
@@ -354,27 +410,42 @@ const MisionVisionPage: React.FC = () => {
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
-                        e.currentTarget.style.transform = 'translateX(5px)';
-                        e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        if (!isMobile) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+                          e.currentTarget.style.transform = 'translateX(5px)';
+                          e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
-                        e.currentTarget.style.transform = 'translateX(0)';
-                        e.currentTarget.style.boxShadow = 'none';
+                        if (!isMobile) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: isMobile ? '10px' : '15px', 
+                        marginBottom: isMobile ? '12px' : '15px',
+                        flexWrap: 'wrap'
+                      }}>
                         <div style={{ 
-                          fontSize: '2rem', 
+                          fontSize: isMobile ? '1.5rem' : '2rem', 
                           color: PALETTE.primary,
                           fontWeight: 'bold'
                         }}>02</div>
-                        <h3 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, fontSize: '1.3rem' }}>
+                        <h3 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, fontSize: isMobile ? '1rem' : '1.3rem' }}>
                           Entorno rehabilitado y seguro
                         </h3>
                       </div>
-                      <p style={{ color: '#1a1a1a', fontSize: '0.95rem', lineHeight: '1.7', marginLeft: '45px' }}>
+                      <p style={{ 
+                        color: '#1a1a1a', 
+                        fontSize: isMobile ? '0.85rem' : '0.95rem', 
+                        lineHeight: '1.6', 
+                        marginLeft: isMobile ? '0' : '45px'
+                      }}>
                         Hemos recuperado nuestra infraestructura porque creemos que el aprendizaje florece donde hay respeto, orden y condiciones adecuadas para estudiar.
                       </p>
                     </div>
@@ -383,7 +454,7 @@ const MisionVisionPage: React.FC = () => {
                   {/* Comunidad + escuela = éxito */}
                   <div className="col-md-6">
                     <div 
-                      className="p-4 rounded-3 h-100"
+                      className="p-3 p-md-4 rounded-3 h-100"
                       style={{ 
                         transition: 'all 0.4s ease',
                         background: 'rgba(255, 255, 255, 0.8)',
@@ -391,27 +462,42 @@ const MisionVisionPage: React.FC = () => {
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
-                        e.currentTarget.style.transform = 'translateX(5px)';
-                        e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        if (!isMobile) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+                          e.currentTarget.style.transform = 'translateX(5px)';
+                          e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
-                        e.currentTarget.style.transform = 'translateX(0)';
-                        e.currentTarget.style.boxShadow = 'none';
+                        if (!isMobile) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: isMobile ? '10px' : '15px', 
+                        marginBottom: isMobile ? '12px' : '15px',
+                        flexWrap: 'wrap'
+                      }}>
                         <div style={{ 
-                          fontSize: '2rem', 
+                          fontSize: isMobile ? '1.5rem' : '2rem', 
                           color: PALETTE.primary,
                           fontWeight: 'bold'
                         }}>03</div>
-                        <h3 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, fontSize: '1.3rem' }}>
+                        <h3 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, fontSize: isMobile ? '1rem' : '1.3rem' }}>
                           Comunidad más escuela es éxito
                         </h3>
                       </div>
-                      <p style={{ color: '#1a1a1a', fontSize: '0.95rem', lineHeight: '1.7', marginLeft: '45px' }}>
+                      <p style={{ 
+                        color: '#1a1a1a', 
+                        fontSize: isMobile ? '0.85rem' : '0.95rem', 
+                        lineHeight: '1.6', 
+                        marginLeft: isMobile ? '0' : '45px'
+                      }}>
                         Nuestra visión es consolidarnos como una institución modelo donde la unión entre la comunidad educativa (familias, docentes, alumnos y vecinos) garantiza la excelencia.
                       </p>
                     </div>
@@ -420,7 +506,7 @@ const MisionVisionPage: React.FC = () => {
                   {/* Compromiso con Caricuao */}
                   <div className="col-md-6">
                     <div 
-                      className="p-4 rounded-3 h-100"
+                      className="p-3 p-md-4 rounded-3 h-100"
                       style={{ 
                         transition: 'all 0.4s ease',
                         background: 'rgba(255, 255, 255, 0.8)',
@@ -428,27 +514,42 @@ const MisionVisionPage: React.FC = () => {
                         cursor: 'pointer'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
-                        e.currentTarget.style.transform = 'translateX(5px)';
-                        e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        if (!isMobile) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 1)';
+                          e.currentTarget.style.transform = 'translateX(5px)';
+                          e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        }
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
-                        e.currentTarget.style.transform = 'translateX(0)';
-                        e.currentTarget.style.boxShadow = 'none';
+                        if (!isMobile) {
+                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: isMobile ? '10px' : '15px', 
+                        marginBottom: isMobile ? '12px' : '15px',
+                        flexWrap: 'wrap'
+                      }}>
                         <div style={{ 
-                          fontSize: '2rem', 
+                          fontSize: isMobile ? '1.5rem' : '2rem', 
                           color: PALETTE.primary,
                           fontWeight: 'bold'
                         }}>04</div>
-                        <h3 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, fontSize: '1.3rem' }}>
+                        <h3 style={{ color: PALETTE.dark, fontWeight: 'bold', margin: 0, fontSize: isMobile ? '1rem' : '1.3rem' }}>
                           Compromiso con Caricuao
                         </h3>
                       </div>
-                      <p style={{ color: '#1a1a1a', fontSize: '0.95rem', lineHeight: '1.7', marginLeft: '45px' }}>
+                      <p style={{ 
+                        color: '#1a1a1a', 
+                        fontSize: isMobile ? '0.85rem' : '0.95rem', 
+                        lineHeight: '1.6', 
+                        marginLeft: isMobile ? '0' : '45px'
+                      }}>
                         Somos parte de este territorio. Trabajamos cada día para fortalecer su cultura, su ciencia y su futuro, con las puertas abiertas a todas las familias que confían en nosotros.
                       </p>
                     </div>
@@ -458,15 +559,16 @@ const MisionVisionPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Botón de regreso */}
-          <div className="text-center mt-5">
+          {/* Botón de regreso - Responsive */}
+          <div className="text-center mt-4 mt-md-5">
             <Link 
               href="/" 
               className="btn btn-xl text-uppercase" 
               style={{ 
                 background: GRADIENTS.buttonGradient, 
                 color: 'white', 
-                padding: '1rem 2rem', 
+                padding: isMobile ? '0.8rem 1.5rem' : '1rem 2rem',
+                fontSize: isMobile ? '0.9rem' : '1rem',
                 border: 'none', 
                 fontWeight: 'bold',
                 borderRadius: '50px',
@@ -476,14 +578,18 @@ const MisionVisionPage: React.FC = () => {
                 boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = GRADIENTS.buttonHoverGradient;
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                if (!isMobile) {
+                  e.currentTarget.style.background = GRADIENTS.buttonHoverGradient;
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = GRADIENTS.buttonGradient;
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+                if (!isMobile) {
+                  e.currentTarget.style.background = GRADIENTS.buttonGradient;
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+                }
               }}>
               ← Volver al Inicio
             </Link>
@@ -496,97 +602,88 @@ const MisionVisionPage: React.FC = () => {
   );
 };
 
-// Componente de Navegación
+// Componente de Navegación - Optimizado para móviles
 const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
+
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav" style={{ 
       background: GRADIENTS.navbarGradient,
-      padding: '1rem 0',
+      padding: isMobile ? '0.8rem 0' : '1rem 0',
       boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
       borderBottom: `2px solid ${PALETTE.primary}`
     }}>
       <div className="container">
-        <a className="navbar-brand" href="/" style={{ fontWeight: 'bold', fontSize: '1.4rem' }}>U.E. "Ciudad Cuatricentenaria"</a>
+        <a className="navbar-brand" href="/" style={{ 
+          fontWeight: 'bold', 
+          fontSize: isMobile ? '0.9rem' : '1.4rem',
+          whiteSpace: isMobile ? 'normal' : 'nowrap',
+          lineHeight: isMobile ? '1.2' : '1'
+        }}>
+          U.E. "Ciudad Cuatricentenaria"
+        </a>
         <button 
           className="navbar-toggler" 
           type="button" 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           style={{ border: 'none' }}
+          aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className={`collapse navbar-collapse ${isMobileMenuOpen ? 'show' : ''}`} id="navbarResponsive">
-          <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0" style={{ alignItems: 'center', gap: '0.5rem' }}>
+          <ul className="navbar-nav text-uppercase ms-auto py-3 py-lg-0" style={{ 
+            alignItems: isMobile ? 'stretch' : 'center', 
+            gap: isMobile ? '0' : '0.5rem'
+          }}>
             <li className="nav-item">
-              <a className="nav-link" href="/#inicio" style={{ 
+              <a className="nav-link" href="/#inicio" onClick={handleLinkClick} style={{ 
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
-                padding: '0.5rem 1rem',
-                borderRadius: '8px'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.transform = 'translateY(0)';
+                padding: isMobile ? '0.8rem 1rem' : '0.5rem 1rem',
+                borderRadius: '8px',
+                display: 'block'
               }}>
                 inicio
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/#galeria" style={{ 
+              <a className="nav-link" href="/#galeria" onClick={handleLinkClick} style={{ 
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
-                padding: '0.5rem 1rem',
-                borderRadius: '8px'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.transform = 'translateY(0)';
+                padding: isMobile ? '0.8rem 1rem' : '0.5rem 1rem',
+                borderRadius: '8px',
+                display: 'block'
               }}>
                 galería
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/#team" style={{ 
+              <a className="nav-link" href="/#team" onClick={handleLinkClick} style={{ 
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
-                padding: '0.5rem 1rem',
-                borderRadius: '8px'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.transform = 'translateY(0)';
+                padding: isMobile ? '0.8rem 1rem' : '0.5rem 1rem',
+                borderRadius: '8px',
+                display: 'block'
               }}>
                 team
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/#contacto" style={{ 
+              <a className="nav-link" href="/#contacto" onClick={handleLinkClick} style={{ 
                 fontWeight: '600',
                 transition: 'all 0.3s ease',
-                padding: '0.5rem 1rem',
-                borderRadius: '8px'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.transform = 'translateY(0)';
+                padding: isMobile ? '0.8rem 1rem' : '0.5rem 1rem',
+                borderRadius: '8px',
+                display: 'block'
               }}>
                 contacto
               </a>
@@ -598,11 +695,17 @@ const Navigation: React.FC = () => {
   );
 };
 
-// Componente Footer
+// Componente Footer - Responsive
 const Footer: React.FC = () => (
-  <footer className="footer py-4" style={{ background: GRADIENTS.footerGradient, borderTop: `1px solid ${PALETTE.primary}` }}>
+  <footer className="footer py-3 py-md-4" style={{ background: GRADIENTS.footerGradient, borderTop: `1px solid ${PALETTE.primary}` }}>
     <div className="container text-center">
-      <span style={{ background: 'linear-gradient(135deg, #083344 0%, #00BB7E 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: 'bold' }}>
+      <span style={{ 
+        background: 'linear-gradient(135deg, #083344 0%, #00BB7E 100%)', 
+        WebkitBackgroundClip: 'text', 
+        WebkitTextFillColor: 'transparent', 
+        fontWeight: 'bold',
+        fontSize: 'clamp(0.7rem, 4vw, 1rem)'
+      }}>
         Copyright © UPTCMS 2026 | U.E Ciudad Cuatricentenaria
       </span>
     </div>
