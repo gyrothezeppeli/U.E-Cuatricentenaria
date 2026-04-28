@@ -342,7 +342,7 @@ const Masthead: React.FC = () => (
           letterSpacing: '1px',
           wordBreak: 'break-word'
         }}>
-        U.E. Ciudad "Cuatricentenaria"
+        U.E. "Ciudad Cuatricentenaria"
       </div>
     </div>
   </header>
