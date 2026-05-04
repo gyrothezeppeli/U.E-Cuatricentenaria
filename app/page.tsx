@@ -57,7 +57,7 @@ const App: React.FC = () => {
   
   const galleryImages: GalleryImage[] = [
     { id: 1, src: "/assets/img/instalacion.jpeg", title: "Instalaciones Rehabilitadas", description: "Aulas completamente renovadas" },
-    { id: 2, src: "/assets/img/cbit.jpeg", title: "Centro CBIT", description: "Moderno centro de computación" },
+    { id: 2, src: "/assets/img/pc2.jpeg", title: "Centro CBIT", description: "Moderno centro de computación" },
     { id: 3, src: "/assets/img/cancha.jpeg", title: "Área Deportiva", description: "Canchas recuperadas" },
     { id: 4, src: "/assets/img/comedor.jpeg", title: "Comedor Escolar", description: "Espacio renovado" },
     { id: 5, src: "/assets/img/auditorio.jpeg", title: "Auditorio", description: "Espacio para eventos culturales" },
