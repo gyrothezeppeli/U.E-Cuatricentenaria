@@ -259,7 +259,7 @@ const Masthead: React.FC = () => (
       marginTop: '60px',
       padding: '0 15px',
       // Imagen de fondo
-      backgroundImage: 'url("/assets/img/instalacion.jpeg")',
+      backgroundImage: 'url("/assets/img/header-bg.jpg")',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
